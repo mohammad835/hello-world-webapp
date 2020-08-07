@@ -1,4 +1,7 @@
-FROM openjdk:8
-WORKDIR /usr/src/app
-COPY target/echoserver.jar /usr/src/app/
-CMD "java -jar /usr/src/app/echoserver.jar"
+FROM python:latest
+
+WORKDIR /
+ADD ./requirements.txt /requirements.txt
+ADD ./app.py /app.py
+RUN pip install -r requirements.txt
+ENTRYPOINT [ "/usr/local/bin/gunicorn", "app:app" ]
